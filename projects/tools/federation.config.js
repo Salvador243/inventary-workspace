@@ -1,13 +1,11 @@
 const { withNativeFederation, shareAll } = require('@angular-architects/native-federation/config');
 
 module.exports = withNativeFederation({
-  remotes: {
-    'mfe-authenticator': 'http://localhost:4201/remoteEntry.json',
-    'mfe-tools': 'http://localhost:4202/remoteEntry.json'
-  },
+  name: 'mfe-tools',
   exposes: {
+    './routes': './projects/tools/src/app/app.routes.ts',
   },
-  
+
   shared: {
     ...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' }),
   },
@@ -23,13 +21,7 @@ module.exports = withNativeFederation({
     '@primeuix/utils',
   ],
 
-  // Please read our FAQ about sharing libs:
-  // https://shorturl.at/jmzH0
-
   features: {
-    // New feature for more performance and avoiding
-    // issues with node libs. Comment this out to
-    // get the traditional behavior:
     ignoreUnusedDeps: true
   }
   

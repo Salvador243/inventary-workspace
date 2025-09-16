@@ -35,6 +35,9 @@
     },
     {
       "path": "./projects/authenticator/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/tools/tsconfig.app.json"
     }
   ]
 }
