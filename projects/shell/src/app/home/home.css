@@ -1,0 +1,121 @@
+.shell-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.shell-header {
+  text-align: center;
+  color: white;
+  margin-bottom: 40px;
+  padding: 40px 0;
+}
+
+.shell-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  font-weight: 300;
+}
+
+.shell-header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.shell-nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.shell-nav h2 {
+  color: white;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+
+.nav-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.nav-card {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.nav-card:not(.disabled):hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.nav-card.disabled {
+  opacity: 0.6;
+  background: #f8f9fa;
+}
+
+.nav-card h3 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+}
+
+.nav-card p {
+  color: #7f8c8d;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+.btn-nav {
+  display: inline-block;
+  background: #3498db;
+  color: white;
+  text-decoration: none;
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-nav:hover:not(.disabled) {
+  background: #2980b9;
+}
+
+.btn-nav.disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.shell-footer {
+  text-align: center;
+  color: white;
+  opacity: 0.8;
+  margin-top: 60px;
+}
+
+@media (max-width: 768px) {
+  .shell-header h1 {
+    font-size: 2rem;
+  }
+  
+  .nav-cards {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .nav-card {
+    padding: 20px;
+  }
+}
