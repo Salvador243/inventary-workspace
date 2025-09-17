@@ -1,30 +1,28 @@
 const { withNativeFederation, shareAll } = require('@angular-architects/native-federation/config');
 
 module.exports = withNativeFederation({
-  name: 'mfe-general',
-  remotes: {
-  },
-  exposes: {
-    './routes': './projects/general/src/app/app.routes.ts',
-  },
+	name: 'mfe-general',
+	remotes: {},
+	exposes: {
+		'./routes': './projects/general/src/app/app.routes.ts',
+	},
 
-  shared: {
-    ...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' }),
-  },
+	shared: {
+		...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' }),
+	},
 
-  skip: [
-    'rxjs/ajax',
-    'rxjs/fetch',
-    'rxjs/testing',
-    'rxjs/webSocket',
-    '@primeuix/themes',
-    '@primeuix/themes/aura',
-    '@primeuix/styles',
-    '@primeuix/utils',
-  ],
+	skip: [
+		'rxjs/ajax',
+		'rxjs/fetch',
+		'rxjs/testing',
+		'rxjs/webSocket',
+		'@primeuix/themes',
+		'@primeuix/themes/aura',
+		'@primeuix/styles',
+		'@primeuix/utils',
+	],
 
-  features: {
-    ignoreUnusedDeps: true
-  }
-  
+	features: {
+		ignoreUnusedDeps: true,
+	},
 });

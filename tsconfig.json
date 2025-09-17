@@ -1,52 +1,70 @@
 /* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
 /* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "strict": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "skipLibCheck": true,
-    "isolatedModules": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
-    "target": "ES2022",
-    "module": "preserve"
-  },
-  "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "typeCheckHostBindings": true,
-    "strictTemplates": true
-  },
-  "files": [],
-  "references": [
-    {
-      "path": "./projects/shell/tsconfig.app.json"
-    },
-    {
-      "path": "./projects/shell/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/authenticator/tsconfig.app.json"
-    },
-    {
-      "path": "./projects/authenticator/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/tools/tsconfig.app.json"
-    },
-    {
-      "path": "./projects/historically/tsconfig.app.json"
-    },
-    {
-      "path": "./projects/assignments/tsconfig.app.json"
-    },
-    {
-      "path": "./projects/general/tsconfig.app.json"
-    }
-  ]
+	"compileOnSave": false,
+	"compilerOptions": {
+		"strict": true,
+		"noImplicitOverride": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"skipLibCheck": true,
+		"isolatedModules": true,
+		"experimentalDecorators": true,
+		"importHelpers": true,
+		"target": "ES2022",
+		"module": "preserve",
+		"baseUrl": ".",
+		"paths": {
+			// Alias específicos para el proyecto shell
+			"@shell/*": ["projects/shell/src/app/*"],
+			"@shell/presentation/*": ["projects/shell/src/app/presentation/*"],
+			"@shell/components/*": ["projects/shell/src/app/presentation/components/*"],
+			"@shell/layouts/*": ["projects/shell/src/app/presentation/layouts/*"],
+			"@shell/provider/*": ["projects/shell/src/app/presentation/provider/*"],
+
+			// Alias específicos para el proyecto authenticator
+			"@authenticator/*": ["projects/authenticator/src/app/*"],
+			"@authenticator/presentation/*": ["projects/authenticator/src/app/presentation/*"],
+
+			// Alias específicos para el proyecto tools
+			"@tools/*": ["projects/tools/src/app/*"],
+			"@tools/presentation/*": ["projects/tools/src/app/presentation/*"],
+			"@tools/layouts/*": ["projects/tools/src/app/presentation/layouts/*"],
+		}
+	},
+	"angularCompilerOptions": {
+		"enableI18nLegacyMessageIdFormat": false,
+		"strictInjectionParameters": true,
+		"strictInputAccessModifiers": true,
+		"typeCheckHostBindings": true,
+		"strictTemplates": true
+	},
+	"files": [],
+	"references": [
+		{
+			"path": "./projects/shell/tsconfig.app.json"
+		},
+		{
+			"path": "./projects/shell/tsconfig.spec.json"
+		},
+		{
+			"path": "./projects/authenticator/tsconfig.app.json"
+		},
+		{
+			"path": "./projects/authenticator/tsconfig.spec.json"
+		},
+		{
+			"path": "./projects/tools/tsconfig.app.json"
+		},
+		{
+			"path": "./projects/historically/tsconfig.app.json"
+		},
+		{
+			"path": "./projects/assignments/tsconfig.app.json"
+		},
+		{
+			"path": "./projects/general/tsconfig.app.json"
+		}
+	]
 }

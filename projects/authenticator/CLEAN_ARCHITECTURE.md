@@ -43,22 +43,26 @@ src/app/
 ## Capas de Clean Architecture
 
 ### 1. Capa de Dominio (`domain/`)
+
 - **Entidades**: Modelos de datos puros sin dependencias externas
 - **Repositorios**: Interfaces que definen contratos para acceso a datos
 - **Servicios**: Interfaces para servicios del dominio (ej: validación de contraseñas)
 
 ### 2. Capa de Aplicación (`application/`)
+
 - **Casos de Uso**: Lógica de negocio específica de la aplicación
 - Orquesta las entidades y repositorios para cumplir requisitos específicos
 - No depende de frameworks externos
 
 ### 3. Capa de Infraestructura (`infrastructure/`)
+
 - **Implementaciones**: Código específico de tecnología (HTTP, LocalStorage, etc.)
 - **Repositorios**: Implementaciones concretas que acceden a APIs o almacenamiento
 - **Servicios**: Implementaciones de servicios usando librerías específicas
 - **DI**: Configuración de inyección de dependencias
 
 ### 4. Capa de Presentación (`presentation/`)
+
 - **Componentes**: Interfaz de usuario usando Angular
 - **Formularios**: Manejo de entrada de datos del usuario
 - **Navegación**: Routing y navegación entre vistas
@@ -66,16 +70,19 @@ src/app/
 ## Principios Implementados
 
 ### Inversión de Dependencias
+
 - Las capas internas no dependen de las externas
 - Se usan interfaces para definir contratos
 - La inyección de dependencias resuelve las implementaciones
 
 ### Separación de Responsabilidades
+
 - Cada capa tiene una responsabilidad específica
 - El dominio contiene la lógica de negocio pura
 - La infraestructura maneja detalles técnicos
 
 ### Independencia de Frameworks
+
 - El dominio y aplicación no dependen de Angular
 - Se puede cambiar la UI o la infraestructura sin afectar la lógica de negocio
 
@@ -92,9 +99,9 @@ El archivo `infrastructure/di/providers.ts` configura la inyección de dependenc
 
 ```typescript
 export const infrastructureProviders: Provider[] = [
-  { provide: UserRepository, useClass: HttpUserRepository },
-  { provide: AuthRepository, useClass: LocalStorageAuthRepository },
-  { provide: PasswordService, useClass: BcryptPasswordService }
+	{ provide: UserRepository, useClass: HttpUserRepository },
+	{ provide: AuthRepository, useClass: LocalStorageAuthRepository },
+	{ provide: PasswordService, useClass: BcryptPasswordService },
 ];
 ```
 
