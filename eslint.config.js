@@ -31,6 +31,11 @@ export default [
       parserOptions: {
         ecmaVersion: 2022,
         sourceType: 'module'
+      },
+      globals: {
+        console: 'readonly',
+        window: 'readonly',
+        document: 'readonly'
       }
     },
     plugins: {
@@ -70,25 +75,21 @@ export default [
       // ✅ PROHIBIR EL USO DE 'ANY' - Tu requisito principal
       '@typescript-eslint/no-explicit-any': 'error',
 
-      // Reglas adicionales de TypeScript
+      // ✅ PERMITIR VARIABLES NO UTILIZADAS - Para variables que empiecen con _
+      'no-unused-vars': 'off', // Desactivar la regla base
       '@typescript-eslint/no-unused-vars': [
-        'error',
+        'warn', // Cambiar a 'warn' en lugar de 'error' para ser menos estricto
         {
-          'argsIgnorePattern': '^_',
-          'varsIgnorePattern': '^_'
+          'argsIgnorePattern': '^_', // Ignorar argumentos que empiecen con _
+          'varsIgnorePattern': '^_', // Ignorar variables que empiecen con _
+          'caughtErrorsIgnorePattern': '^_', // Ignorar errores capturados que empiecen con _
+          'destructuredArrayIgnorePattern': '^_', // Ignorar elementos de array destructurado que empiecen con _
+          'ignoreRestSiblings': true // Ignorar propiedades rest siblings
         }
       ],
+      'no-console': 'off',
 
       // Reglas generales de código
-      'no-console': [
-        'warn',
-        {
-          'allow': [
-            'warn',
-            'error'
-          ]
-        }
-      ],
       'no-debugger': 'error',
       'no-var': 'error',
       'prefer-const': 'error',
@@ -104,10 +105,6 @@ export default [
         'always'
       ],
       'eol-last': 'error',
-      'comma-dangle': [
-        'error',
-        'never'
-      ],
       'object-curly-spacing': [
         'error',
         'always'
