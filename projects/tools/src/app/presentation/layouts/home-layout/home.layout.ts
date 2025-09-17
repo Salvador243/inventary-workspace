@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
@@ -7,7 +7,7 @@ import { ButtonModule } from 'primeng/button';
   imports: [
     ButtonModule
   ],
-  templateUrl: './home.layout.html',
+  templateUrl: './home.layout.html'
 })
 export class HomeLayoutComponent {
 

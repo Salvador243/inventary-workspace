@@ -1,4 +1,4 @@
-import {Component, signal, WritableSignal} from '@angular/core';
+import { Component, signal, WritableSignal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
