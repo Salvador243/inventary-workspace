@@ -38,6 +38,15 @@
     },
     {
       "path": "./projects/tools/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/historically/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/assignments/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/general/tsconfig.app.json"
     }
   ]
 }
