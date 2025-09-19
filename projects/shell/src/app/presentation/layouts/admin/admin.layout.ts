@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import PrimengComponents from '../../provider/primeng.components';
 import { MenuItem } from 'primeng/api';
-import { Router } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
 	selector: 'shell-admin-layout',
 	standalone: true,
-	imports: [...PrimengComponents],
+	imports: [...PrimengComponents, RouterOutlet, RouterModule],
 	templateUrl: './admin.layout.html',
 	styles: [],
 })
