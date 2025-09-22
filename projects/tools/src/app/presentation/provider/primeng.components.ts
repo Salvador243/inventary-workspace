@@ -6,6 +6,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
+import { FileUploadModule } from 'primeng/fileupload';
 
 export const PRIMENG_IMPORTS = [
 	TabsModule,
@@ -16,6 +17,7 @@ export const PRIMENG_IMPORTS = [
 	TableModule,
 	TagModule,
 	ButtonModule,
+	FileUploadModule,
 ];
 
 export default PRIMENG_IMPORTS;

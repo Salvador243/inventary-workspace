@@ -11,12 +11,12 @@ import {
 import PRIMENG_IMPORTS from '../../provider/primeng.components';
 
 @Component({
-	selector: 'general-garage-form',
+	selector: 'tools-categorie-form',
 	standalone: true,
-	templateUrl: './garage-form.component.html',
+	templateUrl: './categorie-form.component.html',
 	imports: [PRIMENG_IMPORTS, CommonModule, FormsModule, ReactiveFormsModule],
 })
-export class GarageFormComponent implements OnInit {
+export class CategorieFormComponent implements OnInit {
 	public checked: boolean = false;
 	public formGarage!: FormGroup;
 

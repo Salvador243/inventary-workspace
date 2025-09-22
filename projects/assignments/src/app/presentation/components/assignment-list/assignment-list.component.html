@@ -1,0 +1,54 @@
+<section class="border border-gray-200 rounded-md">
+	<p-table [value]="assignments" class="!rounded-md" showGridlines>
+		<ng-template #header>
+			<tr>
+				<th>Usuario Asignado</th>
+				<th>Herramientas</th>
+				<th>Fecha/Hora Salida</th>
+				<th>Fecha/Hora Regreso</th>
+				<th>Condición</th>
+				<th>Acciones</th>
+			</tr>
+		</ng-template>
+		<ng-template #body let-assignment>
+			<tr>
+				<td>
+					<p-tag severity="info" [value]="assignment.usuario_asignado" />
+				</td>
+				<td>
+					<div class="flex flex-wrap gap-1">
+						@for (herramienta of assignment.herramienta; track $index) {
+							<p-tag severity="secondary" [value]="herramienta" />
+						}
+					</div>
+				</td>
+				<td>
+					<p-tag severity="success" [value]="(assignment.fecha_hora_salida | date:'dd/MM/yyyy HH:mm') || 'Sin fecha'" />
+				</td>
+				<td>
+					@if (assignment.fecha_hora_regreso) {
+						<p-tag severity="warning" [value]="(assignment.fecha_hora_regreso | date:'dd/MM/yyyy HH:mm') || 'Sin fecha'" />
+					} @else {
+						<p-tag severity="contrast" value="Pendiente" />
+					}
+				</td>
+				<td>
+					@switch (assignment.condicion) {
+						@case ('Excelente') {
+							<p-tag severity="success" [value]="assignment.condicion" />
+						}
+						@case ('Bueno') {
+							<p-tag severity="warning" [value]="assignment.condicion" />
+						}
+						@case ('Averiado') {
+							<p-tag severity="danger" [value]="assignment.condicion" />
+						}
+					}
+				</td>
+				<td>
+					<p-button icon="pi pi-pen-to-square" [rounded]="true" severity="info" />
+				</td>
+			</tr>
+		</ng-template>
+	</p-table>
+</section>

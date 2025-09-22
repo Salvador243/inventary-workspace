@@ -1,29 +1,35 @@
 import { Component } from '@angular/core';
 import PRIMENG_IMPORTS from '../../provider/primeng.components';
-import { Garage } from '../../../domain/entities/garages.entity';
+import { Categorie } from '../../../domain/entities/categorie.entity';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-	selector: 'general-garage-list',
+	selector: 'tools-categorie-list',
 	standalone: true,
-	templateUrl: './garage-list.component.html',
+	templateUrl: './categorie-list.component.html',
 	imports: [...PRIMENG_IMPORTS, CommonModule, FormsModule],
 })
 
-export class GarageListComponent {
-	public garages: Garage[] = [
+export class CategorieListComponent {
+	public categories: Categorie[] = [
 		{
 			id: '1',
 			code: '123',
-			name: 'Garage 1',
+			name: 'Mecanica',
 			status: true,
 		},
 		{
 			id: '2',
 			code: '456',
-			name: 'Garage 2',
+			name: 'Digital',
 			status: false,
+		},
+		{
+			id: '3',
+			code: '789',
+			name: 'Neumatica',
+			status: true,
 		},
 	];
 }

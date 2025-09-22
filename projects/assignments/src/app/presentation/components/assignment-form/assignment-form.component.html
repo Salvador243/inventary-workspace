@@ -1,0 +1,112 @@
+<section>
+  <form class="gap-y-3 grid grid-cols-2 gap-x-3" [formGroup]="formAssignment" (ngSubmit)="onSubmit()">
+    <!-- Usuario Asignado -->
+    <div>
+      <p-floatlabel variant="on">
+        <input
+					class="w-full"
+          formControlName="usuario_asignado"
+          pInputText
+          id="usuario_asignado"
+          autocomplete="on"
+          [invalid]="isFieldInvalid('usuario_asignado')"
+        />
+        <label for="usuario_asignado">Usuario Asignado</label>
+      </p-floatlabel>
+      @if(getFieldError('usuario_asignado')) {
+        <div class="p-error">
+          <small>{{ getFieldError('usuario_asignado') }}</small>
+        </div>
+      }
+    </div>
+
+    <!-- Herramientas (Selector Múltiple) -->
+    <div>
+      <p-multiselect
+        formControlName="herramienta"
+        [options]="herramientasDisponibles"
+        placeholder="Seleccionar herramientas"
+        [invalid]="isFieldInvalid('herramienta')"
+        [showToggleAll]="true"
+        [showClear]="true"
+        [filter]="true"
+        filterPlaceholder="Buscar herramientas..."
+        [maxSelectedLabels]="2"
+        selectedItemsLabel="{0} herramientas seleccionadas"
+        styleClass="w-full"
+      />
+      @if(getFieldError('herramienta')) {
+        <div class="p-error">
+          <small>{{ getFieldError('herramienta') }}</small>
+        </div>
+      }
+    </div>
+
+    <!-- Fecha y Hora de Salida -->
+    <div>
+      <p-floatlabel variant="on">
+        <p-datepicker
+          formControlName="fecha_hora_salida"
+          inputId="fecha_hora_salida"
+          [showTime]="true"
+          [showClear]="true"
+          [showSeconds]="false"
+          dateFormat="dd/mm/yy"
+          [invalid]="isFieldInvalid('fecha_hora_salida')"
+          styleClass="w-full"
+          placeholder="Seleccionar fecha y hora"
+        />
+        <label for="fecha_hora_salida">Fecha/Hora Salida</label>
+      </p-floatlabel>
+      @if(getFieldError('fecha_hora_salida')) {
+        <div class="p-error">
+          <small>{{ getFieldError('fecha_hora_salida') }}</small>
+        </div>
+      }
+    </div>
+
+    <!-- Fecha y Hora de Regreso (Opcional) -->
+    <div>
+      <p-floatlabel variant="on">
+        <p-datepicker
+          formControlName="fecha_hora_regreso"
+          inputId="fecha_hora_regreso"
+          [showTime]="true"
+					[showClear]="true"
+          [showSeconds]="false"
+          dateFormat="dd/mm/yy"
+          styleClass="w-full"
+          placeholder="Seleccionar fecha y hora (opcional)"
+        />
+        <label for="fecha_hora_regreso">Fecha/Hora Regreso (Opcional)</label>
+      </p-floatlabel>
+    </div>
+
+    <!-- Condición -->
+    <div>
+      <label class="block text-sm font-medium mb-2">Condición *</label>
+      <div class="flex gap-6">
+        @for (condicion of condicionesDisponibles; track $index) {
+          <div class="flex items-center gap-2">
+            <p-radiobutton
+              [inputId]="'condicion_' + $index"
+              formControlName="condicion"
+              [value]="condicion"
+            />
+            <label [for]="'condicion_' + $index" class="text-sm cursor-pointer">{{ condicion }}</label>
+          </div>
+        }
+      </div>
+      @if(getFieldError('condicion')) {
+        <div class="p-error">
+          <small>{{ getFieldError('condicion') }}</small>
+        </div>
+      }
+    </div>
+
+    <!-- Botón Submit -->
+    <div class="col-span-2">
+      <p-button label="Guardar Asignación" severity="info" type="submit" [disabled]="!formAssignment.valid" />
+    </div>
+  </form>
+</section>

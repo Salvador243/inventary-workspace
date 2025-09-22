@@ -34,21 +34,14 @@ export class AdminLayoutComponent implements OnInit {
 				label: 'Herramientas',
 				icon: 'pi pi-wrench',
 				command: () => {
-					this.router.navigate(['/tools']);
+					this.router.navigate(['/tools/tools']);
 				},
 			},
 			{
 				label: 'Asignaciones',
 				icon: 'pi pi-folder-plus',
 				command: () => {
-					this.router.navigate(['/assignments']);
-				},
-			},
-			{
-				label: 'Condiciones',
-				icon: 'pi pi-flag',
-				command: () => {
-					this.router.navigate(['/general/conditions']);
+					this.router.navigate(['/assignments/assignments']);
 				},
 			},
 		];

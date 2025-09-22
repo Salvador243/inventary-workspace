@@ -1,0 +1,151 @@
+<section>
+  <form class="gap-y-3 grid grid-cols-3" [formGroup]="formTool" (ngSubmit)="onSubmit()">
+    <!-- Código -->
+    <div>
+      <p-floatlabel variant="on">
+        <input
+          formControlName="code"
+          pInputText
+          id="code"
+          autocomplete="on"
+          [invalid]="isFieldInvalid('code')"
+        />
+        <label for="code">Código</label>
+      </p-floatlabel>
+      @if(getFieldError('code')) {
+        <div class="p-error">
+          <small>{{ getFieldError('code') }}</small>
+        </div>
+      }
+    </div>
+
+    <!-- Nombre -->
+    <div>
+      <p-floatlabel variant="on">
+        <input
+          formControlName="nombre"
+          pInputText
+          id="nombre"
+          autocomplete="on"
+          [invalid]="isFieldInvalid('nombre')"
+        />
+        <label for="nombre">Nombre</label>
+      </p-floatlabel>
+      @if(getFieldError('nombre')) {
+        <div class="p-error">
+          <small>{{ getFieldError('nombre') }}</small>
+        </div>
+      }
+    </div>
+
+    <!-- Categoría -->
+    <div>
+      <p-floatlabel variant="on">
+        <input
+          formControlName="categoria"
+          pInputText
+          id="categoria"
+          autocomplete="on"
+          [invalid]="isFieldInvalid('categoria')"
+        />
+        <label for="categoria">Categoría</label>
+      </p-floatlabel>
+      @if(getFieldError('categoria')) {
+        <div class="p-error">
+          <small>{{ getFieldError('categoria') }}</small>
+        </div>
+      }
+    </div>
+
+    <!-- Contador Activos -->
+    <div>
+      <p-floatlabel variant="on">
+        <input
+          formControlName="contador_activos"
+          pInputText
+          id="contador_activos"
+          type="number"
+          min="0"
+          [invalid]="isFieldInvalid('contador_activos')"
+        />
+        <label for="contador_activos">Contador Activos</label>
+      </p-floatlabel>
+      @if(getFieldError('contador_activos')) {
+        <div class="p-error">
+          <small>{{ getFieldError('contador_activos') }}</small>
+        </div>
+      }
+    </div>
+
+    <!-- Contador Fuera de Servicio -->
+    <div>
+      <p-floatlabel variant="on">
+        <input
+          formControlName="contador_fuera_de_servicio"
+          pInputText
+          id="contador_fuera_de_servicio"
+          type="number"
+          min="0"
+          [invalid]="isFieldInvalid('contador_fuera_de_servicio')"
+        />
+        <label for="contador_fuera_de_servicio">Fuera de Servicio</label>
+      </p-floatlabel>
+      @if(getFieldError('contador_fuera_de_servicio')) {
+        <div class="p-error">
+          <small>{{ getFieldError('contador_fuera_de_servicio') }}</small>
+        </div>
+      }
+    </div>
+
+    <!-- Imagen -->
+    <div>
+      <label for="imagen" class="block text-sm font-medium mb-2">Imagen</label>
+      <p-fileUpload
+        id="imagen"
+        mode="basic"
+        accept="image/*"
+        [maxFileSize]="1000000"
+        chooseLabel="Seleccionar imagen"
+        [auto]="true"
+				url="https://www.primefaces.org/cdn/api/upload.php"
+				styleClass="w-full"
+        (onSelect)="onFileSelect($event)"
+      ></p-fileUpload>
+      @if(getFieldError('imagen')) {
+        <div class="p-error">
+          <small>{{ getFieldError('imagen') }}</small>
+        </div>
+      }
+    </div>
+
+    <!-- Taller -->
+    <div>
+      <p-floatlabel variant="on">
+        <input
+          formControlName="taller"
+          pInputText
+          id="taller"
+          autocomplete="on"
+          [invalid]="isFieldInvalid('taller')"
+        />
+        <label for="taller">Taller</label>
+      </p-floatlabel>
+      @if(getFieldError('taller')) {
+        <div class="p-error">
+          <small>{{ getFieldError('taller') }}</small>
+        </div>
+      }
+    </div>
+
+    <!-- Estatus -->
+    <div class="flex items-center">
+      <label class="mr-3">Estatus:</label>
+      <p-toggleswitch formControlName="estatus" />
+    </div>
+
+    <!-- Botón Submit -->
+    <div class="col-span-3">
+      <p-button label="Guardar Herramienta" severity="info" type="submit" [disabled]="!formTool.valid" />
+    </div>
+  </form>
+</section>

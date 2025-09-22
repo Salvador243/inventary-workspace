@@ -1,0 +1,18 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"types": ["node"]
+	},
+	"include": [
+		"projects/**/*.ts",
+		"projects/**/*.html",
+		"eslint.config.js"
+	],
+	"exclude": [
+		"node_modules",
+		"dist",
+		"out-tsc",
+		".angular",
+		"coverage"
+	]
+}

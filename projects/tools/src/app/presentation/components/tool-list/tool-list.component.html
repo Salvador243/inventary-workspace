@@ -1,0 +1,51 @@
+<section class="border border-gray-200 rounded-md">
+	<p-table [value]="tools" class="!rounded-md" showGridlines>
+		<ng-template #header>
+			<tr>
+				<th>Código</th>
+				<th>Nombre</th>
+				<th>Categoría</th>
+				<th>Activos</th>
+				<th>Fuera de Servicio</th>
+				<th>Imagen</th>
+				<th>Taller</th>
+				<th>Estatus</th>
+				<th>Acciones</th>
+			</tr>
+		</ng-template>
+		<ng-template #body let-tool>
+			<tr>
+				<td>
+					<p-tag severity="info" [value]="tool.code" />
+				</td>
+				<td>{{ tool.nombre }}</td>
+				<td>
+					<p-tag severity="secondary" [value]="tool.categoria" />
+				</td>
+				<td class="text-center">
+					<p-tag severity="success" [value]="tool.contador_activos" />
+				</td>
+				<td class="text-center">
+					<p-tag severity="danger" [value]="tool.contador_fuera_de_servicio" />
+				</td>
+				<td>
+					<p-tag severity="contrast" [value]="tool.imagen" />
+				</td>
+				<td>
+					<p-tag severity="warning" [value]="tool.taller" />
+				</td>
+				<td>
+					<p-toggleswitch 
+						[disabled]="true" 
+						[(ngModel)]="tool.estatus" 
+						[trueValue]="true" 
+						[falseValue]="false" 
+					/>
+				</td>
+				<td>
+					<p-button icon="pi pi-pen-to-square" [rounded]="true" severity="info" />
+				</td>
+			</tr>
+		</ng-template>
+	</p-table>
+</section>
