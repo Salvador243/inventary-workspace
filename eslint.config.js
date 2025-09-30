@@ -20,7 +20,7 @@ export default [
 			'no-console': ['error', { allow: ['warn', 'error'] }],
 			quotes: ['error', 'single', { allowTemplateLiterals: true }],
 			'no-multiple-empty-lines': ['error', { max: 1 }],
-			'no-unused-vars': 'error',
+			'no-unused-vars': 'warn',
 		},
 	},
 ];

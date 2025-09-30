@@ -2,8 +2,7 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
 	{
-		path: '',
-		title: 'home',
+		path: 'login',
 		loadComponent: () =>
 			import('./presentation/layouts/login-layout/login.layout').then(
 				(m) => m.LoginLayoutComponent,
@@ -11,6 +10,6 @@ export const routes: Routes = [
 	},
 	{
 		path: '**',
-		redirectTo: '',
+		redirectTo: 'login',
 	},
 ];

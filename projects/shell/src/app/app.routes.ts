@@ -4,13 +4,13 @@ import { AdminLayoutComponent } from './presentation/layouts/admin/admin.layout'
 
 export const routes: Routes = [
 	{
-		path: '',
+		path: 'auth',
+		loadChildren: () => loadRemoteModule('mfe-authenticator', './routes').then((m) => m.routes),
+	},
+	{
+		path: 'admin',
 		component: AdminLayoutComponent,
 		children: [
-			{
-				path: 'auth',
-				loadChildren: () => loadRemoteModule('mfe-authenticator', './routes').then((m) => m.routes),
-			},
 			{
 				path: 'tools',
 				loadChildren: () => loadRemoteModule('mfe-tools', './routes').then((m) => m.routes),
@@ -31,6 +31,6 @@ export const routes: Routes = [
 	},
 	{
 		path: '**',
-		redirectTo: '/',
+		redirectTo: 'auth',
 	},
 ];
