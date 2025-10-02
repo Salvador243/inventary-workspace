@@ -10,7 +10,6 @@ module.exports = withNativeFederation({
 	shared: {
 		...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' }),
 	},
-
 	skip: [
 		'rxjs/ajax',
 		'rxjs/fetch',
@@ -21,7 +20,6 @@ module.exports = withNativeFederation({
 		'@primeuix/styles',
 		'@primeuix/utils',
 	],
-
 	features: {
 		ignoreUnusedDeps: true,
 	},

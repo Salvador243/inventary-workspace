@@ -9,6 +9,13 @@ export const routes: Routes = [
 			),
 	},
 	{
+		path: 'register',
+		loadComponent: () =>
+			import('./presentation/layouts/register-layout/register.layout').then(
+				(m) => m.RegisterLayoutComponent,
+			),
+	},
+	{
 		path: '**',
 		redirectTo: 'login',
 	},
