@@ -11,7 +11,7 @@ import { Router, RouterModule, RouterOutlet } from '@angular/router';
 	styles: [],
 })
 export class AdminLayoutComponent implements OnInit {
-	constructor(private router: Router) {}	
+	constructor(private router: Router) {}
 	public items: MenuItem[] = [];
 
 	ngOnInit(): void {
@@ -20,30 +20,35 @@ export class AdminLayoutComponent implements OnInit {
 				label: 'Taller',
 				icon: 'pi pi-car',
 				command: () => {
-					this.router.navigate(['/general/garage']);
+					this.router.navigate(['/admin/general/garage']);
 				},
 			},
 			{
 				label: 'Categorias',
 				icon: 'pi pi-th-large',
 				command: () => {
-					this.router.navigate(['/tools/categories']);
+					this.router.navigate(['/admin/tools/categories']);
 				},
 			},
 			{
 				label: 'Herramientas',
 				icon: 'pi pi-wrench',
 				command: () => {
-					this.router.navigate(['/tools/tools']);
+					this.router.navigate(['/admin/tools/tools']);
 				},
 			},
 			{
 				label: 'Asignaciones',
 				icon: 'pi pi-folder-plus',
 				command: () => {
-					this.router.navigate(['/assignments/assignments']);
+					this.router.navigate(['/admin/assignments/assignments']);
 				},
 			},
 		];
+	}
+
+	public onLogOut(): void {
+		localStorage.removeItem('auth.token');
+		this.router.navigate(['/auth/login']);
 	}
 }

@@ -27,7 +27,7 @@
 				</td>
 				<td>
 					@if (assignment.fecha_hora_regreso) {
-						<p-tag severity="warning" [value]="(assignment.fecha_hora_regreso | date:'dd/MM/yyyy HH:mm') || 'Sin fecha'" />
+						<p-tag severity="warn" [value]="(assignment.fecha_hora_regreso | date:'dd/MM/yyyy HH:mm') || 'Sin fecha'" />
 					} @else {
 						<p-tag severity="contrast" value="Pendiente" />
 					}
@@ -38,7 +38,7 @@
 							<p-tag severity="success" [value]="assignment.condicion" />
 						}
 						@case ('Bueno') {
-							<p-tag severity="warning" [value]="assignment.condicion" />
+							<p-tag severity="warn" [value]="assignment.condicion" />
 						}
 						@case ('Averiado') {
 							<p-tag severity="danger" [value]="assignment.condicion" />

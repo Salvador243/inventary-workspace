@@ -1,14 +1,18 @@
 import { Routes } from '@angular/router';
 import { loadRemoteModule } from '@angular-architects/native-federation';
 import { AdminLayoutComponent } from './presentation/layouts/admin/admin.layout';
+import { AuthGuard } from './guards/auth.guard';
+import { UnauthGuard } from './guards/unauth.guard';
 
 export const routes: Routes = [
 	{
 		path: 'auth',
+		canActivate: [UnauthGuard],
 		loadChildren: () => loadRemoteModule('mfe-authenticator', './routes').then((m) => m.routes),
 	},
 	{
 		path: 'admin',
+		canActivate: [AuthGuard],
 		component: AdminLayoutComponent,
 		children: [
 			{

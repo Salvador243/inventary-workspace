@@ -48,9 +48,8 @@ export class LoginFormComponent implements OnInit {
 
         try {
             const result = await this.loginUseCase.execute({ email, password });
-            // Opcional: navegar a otra ruta después del login exitoso
             if (this.router) {
-                this.router.navigate(['/dashboard']); // Cambia la ruta según tu aplicación
+                this.router.navigate(['/admin/general']);
             }
 
         } catch (err: any) {

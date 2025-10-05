@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 	selector: 'assignments-assignment-list',
 	standalone: true,
 	templateUrl: './assignment-list.component.html',
-	imports: [...PRIMENG_IMPORTS, CommonModule, FormsModule],
+	imports: [PRIMENG_IMPORTS, CommonModule, FormsModule],
 })
 
 export class AssignmentListComponent {

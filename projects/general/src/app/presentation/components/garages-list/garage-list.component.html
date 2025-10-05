@@ -1,5 +1,5 @@
 <section class="border border-gray-200 rounded-md">
-	<p-table [value]="garages" class="!rounded-md !bg-red-500" showGridlines x>
+	<p-table [value]="garages" class="!rounded-md !bg-red-500" showGruuidlines x>
 		<ng-template #header>
 			<tr>
 				<th>Identificador</th>
@@ -11,7 +11,7 @@
 		</ng-template>
 		<ng-template #body let-garage>
 			<tr>
-				<td>{{ garage.id }}</td>
+				<td>{{ garage.uuid }}</td>
 				<td>
 					<p-tag severity="info" [value]="garage.code" />
 				</td>
@@ -20,7 +20,7 @@
 					<p-toggleswitch [disabled]="true" [(ngModel)]="garage.status" [trueValue]="true" [falseValue]="false" />
 				</td>
 				<td>
-					<p-button icon="pi pi-pen-to-square" [rounded]="true" />
+					<p-button icon="pi pi-pen-to-square" [rounded]="true" (click)="fetchGarageByUuid(garage.uuid)" />
 				</td>
 			</tr>
 		</ng-template>

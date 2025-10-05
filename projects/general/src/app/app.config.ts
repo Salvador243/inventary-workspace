@@ -9,6 +9,7 @@ import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
+import {infrastructureProviders} from './infrastructure/di/provider';
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -21,5 +22,6 @@ export const appConfig: ApplicationConfig = {
 				preset: Aura,
 			},
 		}),
+		...infrastructureProviders,
 	],
 };
