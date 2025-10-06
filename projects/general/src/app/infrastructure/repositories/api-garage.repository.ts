@@ -1,13 +1,23 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-import { ApiCreateGarageResponse, ApiFetchGarageUuidSuccessResponse, ApiGetGarageData, ApiGetGaragesResponse, CreateGarageRequest, Garage, ParamsGetGarages } from '../../domain/entities/garages.entity';
+import {
+	ApiCreateGarageResponse,
+	ApiDeleteGarageResponse,
+	ApiFetchGarageUuidSuccessResponse,
+	ApiGetGarageData,
+	ApiGetGaragesResponse,
+	ApiUpdateGarageResponse,
+	CreateGarageRequest,
+	Garage,
+	ParamsGetGarages
+} from '../../domain/entities/garages.entity';
 import {
 	HttpGarageRepository,
 } from '../../domain/repositories/http-garage.repository';
 
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class ApiGarageRepository implements HttpGarageRepository{
 	private readonly baseUrl: string = 'http://localhost:3001/garage';
 
@@ -46,5 +56,24 @@ export class ApiGarageRepository implements HttpGarageRepository{
 			throw new Error(Array.isArray(reponse.message) ? reponse.message.join(', ') : reponse.message);
 		}
 		return reponse.data;
+	}
+
+	public async updateGarage(garage: Garage): Promise<Garage> {
+		const url = `${this.baseUrl}/update-garage/${garage.uuid}`;
+		const { uuid, ...payload } = garage
+		const reponse = await firstValueFrom(this.http.put<ApiUpdateGarageResponse>(url, payload));
+		if(!reponse.success) {
+			throw new Error(Array.isArray(reponse.message) ? reponse.message.join(', ') : reponse.message);
+		}
+		return reponse.data;
+	}
+
+	public async deleteGarage(uuid: string): Promise<void> {
+		const url = `${this.baseUrl}/delete-garage/${uuid}`;
+		const reponse = await firstValueFrom(this.http.delete<ApiDeleteGarageResponse>(url));
+		if(!reponse.success) {
+			throw new Error(Array.isArray(reponse.message) ? reponse.message.join(', ') : reponse.message);
+		}
+		return;
 	}
 }

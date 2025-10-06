@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpGarageRepository } from '../../domain/repositories/http-garage.repository';
 import { ApiGetGarageData, ParamsGetGarages } from '../../domain/entities/garages.entity';
 
-@Injectable({ providedIn: 'platform' })
+@Injectable()
 export class FetchGaragesUseCase {
 	constructor(private readonly garageRepository: HttpGarageRepository) {}
 

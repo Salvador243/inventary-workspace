@@ -42,6 +42,17 @@ export interface ApiFetchGarageUuidSuccessResponse {
 	data: Garage;
 }
 
+export interface ApiUpdateGarageResponse {
+	success: boolean;
+	message: string;
+	data: Garage;
+}
+
+export interface ApiDeleteGarageResponse {
+	success: boolean;
+	message: string;
+}
+
 export type ApiGetGaragesResponse = ApiGetGaragesSuccessResponse | ApiErrorResponse;
 
 export interface CreateGarageRequest {

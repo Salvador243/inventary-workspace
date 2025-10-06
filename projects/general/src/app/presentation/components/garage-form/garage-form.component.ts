@@ -1,45 +1,48 @@
-import {CommonModule} from '@angular/common';
-import {Component, DestroyRef, effect, EventEmitter, inject, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators,} from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Component, effect, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import {
+	FormBuilder,
+	FormControl,
+	FormGroup,
+	FormsModule,
+	ReactiveFormsModule,
+	Validators,
+} from '@angular/forms';
 import PRIMENG_IMPORTS from '../../provider/primeng.components';
-import {CreateGarageUseCase} from '../../../application/use-cases/create-garage.use-case';
-import {GarageStateService} from '../../services/garage-state.service';
+import { GarageStateService } from '../../services/garage-state.service';
 
 @Component({
 	selector: 'general-garage-form',
 	standalone: true,
 	templateUrl: './garage-form.component.html',
 	imports: [PRIMENG_IMPORTS, CommonModule, FormsModule, ReactiveFormsModule],
-	providers: [CreateGarageUseCase],
 })
 export class GarageFormComponent implements OnInit {
 	public checked: boolean = false;
 	public formGarage!: FormGroup;
 
 	private readonly garageStateService = inject(GarageStateService);
-	private readonly destroyRef = inject(DestroyRef);
+	private readonly fb = inject(FormBuilder);
+
+	private uuid: string | undefined = undefined;
 
 	@Output()
 	changeTab = new EventEmitter<string>();
 
-	constructor(
-		private fb: FormBuilder,
-		private createGarageUseCase: CreateGarageUseCase
-	) {
+	constructor() {
 		effect(() => {
+			this.uuid = undefined;
+			this.formGarage.reset();
+			this.checked = true;
 			const selectedGarage = this.garageStateService.garageSelected();
 			if (!this.formGarage) return;
-			if (!selectedGarage) {
-				this.formGarage.reset();
-				this.checked = false;
-				return;
-			}
+			if (!selectedGarage) return;
 
+			this.uuid = selectedGarage.uuid;
 			this.formGarage.patchValue({
-				uuid: selectedGarage.uuid,
 				code: selectedGarage.code,
 				name: selectedGarage.name,
-				status: selectedGarage.status
+				status: selectedGarage.status,
 			});
 			this.checked = selectedGarage.status;
 		});
@@ -47,14 +50,12 @@ export class GarageFormComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.formGarage = this.fb.group({
-			uuid: new FormControl(''),
 			code: new FormControl('', [Validators.required, Validators.minLength(3)]),
 			name: new FormControl('', [Validators.required, Validators.minLength(3)]),
 			status: new FormControl(true, [Validators.required]),
 		});
 	}
 
-	// Métodos helper para validaciones
 	isFieldInvalid(fieldName: string): boolean {
 		const field = this.formGarage.get(fieldName);
 		return !!(field && field.invalid && (field.dirty || field.touched));
@@ -74,14 +75,15 @@ export class GarageFormComponent implements OnInit {
 	}
 
 	async onSubmit(): Promise<void> {
-		await this.createGarageUseCase.execute(this.formGarage.value);
-		this.garageStateService.triggerReload();
+		if (!this.formGarage.valid) return;
+		await this.garageStateService.saveGarage(this.formGarage.value, this.uuid);
 		this.changeTab.emit('list');
 		this.onReset();
-		this.checked = false;
 	}
 
 	onReset(): void {
 		this.formGarage.reset();
+		this.garageStateService.clearSelection();
+		this.checked = true;
 	}
 }

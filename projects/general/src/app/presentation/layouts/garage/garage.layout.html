@@ -1,8 +1,8 @@
 <section class="card">
-	<p-tabs [(value)]="activeTab" (change)="clearSelectedGarage()">
+	<p-tabs [(value)]="activeTab">
 		<p-tablist>
 			@for (item of tabs; track $index) {
-			<p-tab class="flex items-center !gap-2" [value]="item.value">
+			<p-tab class="flex items-center !gap-2" [value]="item.value" (click)="onChangeTab(item.value)">
 				<i [class]="item.icon"></i>
 				<span>{{ item.label }}</span>
 			</p-tab>

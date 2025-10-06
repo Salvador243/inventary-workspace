@@ -3,5 +3,5 @@ import {HttpGarageRepository} from '../../domain/repositories/http-garage.reposi
 import {ApiGarageRepository} from '../repositories/api-garage.repository';
 
 export const infrastructureProviders: Provider[] = [
-	{provide: HttpGarageRepository, useClass: ApiGarageRepository}
+	{ provide: HttpGarageRepository, useClass: ApiGarageRepository }
 ];

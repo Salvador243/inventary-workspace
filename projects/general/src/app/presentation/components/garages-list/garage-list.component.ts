@@ -1,18 +1,17 @@
-import {Component, OnInit, inject, effect, Output, EventEmitter} from '@angular/core';
-import PRIMENG_IMPORTS from '../../provider/primeng.components';
-import {Garage} from '../../../domain/entities/garages.entity';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {FetchGaragesUseCase} from '../../../application/use-cases/fetch-garages-use-case.service';
-import {GarageStateService} from '../../services/garage-state.service';
+import { CommonModule } from '@angular/common';
+import { Component, effect, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { FetchGarageUuidUseCase } from '../../../application/use-cases/fetch-garage-uuid.use-case';
+import { FetchGaragesUseCase } from '../../../application/use-cases/fetch-garages-use-case';
+import { Garage } from '../../../domain/entities/garages.entity';
+import PRIMENG_IMPORTS from '../../provider/primeng.components';
+import { GarageStateService } from '../../services/garage-state.service';
 
 @Component({
 	selector: 'general-garage-list',
 	standalone: true,
 	templateUrl: './garage-list.component.html',
 	imports: [...PRIMENG_IMPORTS, CommonModule, FormsModule],
-	providers: [FetchGaragesUseCase, FetchGarageUuidUseCase]
 })
 
 export class GarageListComponent implements OnInit {
@@ -54,5 +53,9 @@ export class GarageListComponent implements OnInit {
 			this.garageStateService.selectGarage(response);
 			this.changeTab.emit('form');
 		}
+	}
+
+	public async onDeleteGarage(uuid: string): Promise<void>{
+		await this.garageStateService.deleteGarage(uuid);
 	}
 }

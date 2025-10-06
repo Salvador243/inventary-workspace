@@ -5,16 +5,22 @@ import {
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
-import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
-import {infrastructureProviders} from './infrastructure/di/provider';
+import { providePrimeNG } from 'primeng/config';
+import { routes } from './app.routes';
+import { CreateGarageUseCase } from './application/use-cases/create-garage.use-case';
+import { DeleteGarageUseCase } from './application/use-cases/delete-garage.use-case';
+import { FetchGarageUuidUseCase } from './application/use-cases/fetch-garage-uuid.use-case';
+import { FetchGaragesUseCase } from './application/use-cases/fetch-garages-use-case';
+import { UpdateGarageUseCase } from './application/use-cases/update-garage.use-case';
+import { infrastructureProviders } from './infrastructure/di/provider';
+import { GarageStateService } from './presentation/services/garage-state.service';
 
 export const appConfig: ApplicationConfig = {
 	providers: [
 		provideBrowserGlobalErrorListeners(),
-		provideZoneChangeDetection({ eventCoalescing: true }),
+		provideZoneChangeDetection({eventCoalescing: true}),
 		provideRouter(routes),
 		provideAnimationsAsync(),
 		providePrimeNG({
@@ -23,5 +29,11 @@ export const appConfig: ApplicationConfig = {
 			},
 		}),
 		...infrastructureProviders,
+		CreateGarageUseCase,
+		UpdateGarageUseCase,
+		DeleteGarageUseCase,
+		FetchGaragesUseCase,
+		FetchGarageUuidUseCase,
+		GarageStateService,
 	],
 };

@@ -12,7 +12,14 @@
 			"architect": {
 				"build": {
 					"builder": "@angular-architects/native-federation:build",
-					"options": {},
+					"options": {
+						"optimization": true,
+						"sourceMap": false,
+						"namedChunks": false,
+						"extractLicenses": true,
+						"vendorChunk": false,
+						"buildOptimizer": true
+					},
 					"configurations": {
 						"production": {
 							"target": "shell:esbuild:production"
