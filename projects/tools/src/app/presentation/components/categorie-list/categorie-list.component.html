@@ -11,7 +11,7 @@
 		</ng-template>
 		<ng-template #body let-categorie>
 			<tr>
-				<td>{{ categorie.id }}</td>
+				<td>{{ categorie.uuid }}</td>
 				<td>
 					<p-tag severity="info" [value]="categorie.code" />
 				</td>
@@ -20,7 +20,15 @@
 					<p-toggleswitch [disabled]="true" [(ngModel)]="categorie.status" [trueValue]="true" [falseValue]="false" />
 				</td>
 				<td>
-					<p-button icon="pi pi-pen-to-square" [rounded]="true" />
+					<div class="gap-1 flex">
+						<i
+							class="pi pi-pen-to-square !w-5 !h-4 !text-xs cursor-pointer"
+							(click)="fetchCategorieByUuid(categorie.uuid)">
+						</i>
+						<i
+							class="pi pi-trash !w-5 !h-4 !text-xs cursor-pointer"
+							(click)="onDeleteCategorie(categorie.uuid)"></i>
+					</div>
 				</td>
 			</tr>
 		</ng-template>

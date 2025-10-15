@@ -2,11 +2,10 @@
 	<p-table [value]="tools" class="!rounded-md" showGridlines>
 		<ng-template #header>
 			<tr>
+				<th>UUID</th>
 				<th>Código</th>
 				<th>Nombre</th>
 				<th>Categoría</th>
-				<th>Activos</th>
-				<th>Fuera de Servicio</th>
 				<th>Imagen</th>
 				<th>Taller</th>
 				<th>Estatus</th>
@@ -15,35 +14,42 @@
 		</ng-template>
 		<ng-template #body let-tool>
 			<tr>
+				<td>{{ tool.uuid }}</td>
 				<td>
 					<p-tag severity="info" [value]="tool.code" />
 				</td>
-				<td>{{ tool.nombre }}</td>
+				<td>{{ tool.name }}</td>
 				<td>
-					<p-tag severity="secondary" [value]="tool.categoria" />
-				</td>
-				<td class="text-center">
-					<p-tag severity="success" [value]="tool.contador_activos" />
-				</td>
-				<td class="text-center">
-					<p-tag severity="danger" [value]="tool.contador_fuera_de_servicio" />
+					<p-tag severity="secondary" [value]="tool.categoryName" />
 				</td>
 				<td>
-					<p-tag severity="contrast" [value]="tool.imagen" />
+					<p-tag severity="contrast" [value]="tool.image || 'Sin imagen'" />
 				</td>
 				<td>
-					<p-tag severity="warn" [value]="tool.taller" />
+					<p-tag severity="warn" [value]="tool.garageName" />
 				</td>
 				<td>
-					<p-toggleswitch
-						[disabled]="true"
-						[(ngModel)]="tool.estatus"
-						[trueValue]="true"
-						[falseValue]="false"
+					<p-tag
+						[severity]="tool.status === 'active' ? 'success' : 'danger'" 
+						[value]="tool.status" 
 					/>
 				</td>
 				<td>
-					<p-button icon="pi pi-pen-to-square" [rounded]="true" severity="info" />
+					<div class="gap-1 flex">
+						<i
+							class="pi pi-box !w-5 !h-4 !text-xs cursor-pointer text-blue-500"
+							(click)="navigateToInstances(tool.uuid)"
+							title="Ver instancias">
+						</i>
+						<i
+							class="pi pi-pen-to-square !w-5 !h-4 !text-xs cursor-pointer"
+							(click)="fetchToolByUuid(tool.uuid)">
+						</i>
+						<i
+							class="pi pi-trash !w-5 !h-4 !text-xs cursor-pointer"
+							(click)="onDeleteTool(tool.uuid)">
+						</i>
+					</div>
 				</td>
 			</tr>
 		</ng-template>

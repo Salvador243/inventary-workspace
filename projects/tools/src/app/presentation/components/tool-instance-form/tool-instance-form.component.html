@@ -1,0 +1,101 @@
+<section>
+  <form class="gap-y-3 grid grid-cols-3" [formGroup]="formToolInstance" (ngSubmit)="onSubmit()">
+    <!-- Código Serial -->
+    <div>
+      <p-floatlabel variant="on">
+        <input
+          formControlName="serialCode"
+          pInputText
+          id="serialCode"
+          autocomplete="on"
+          [invalid]="isFieldInvalid('serialCode')"
+        />
+        <label for="serialCode">Código Serial</label>
+      </p-floatlabel>
+      @if(getFieldError('serialCode')) {
+        <div class="p-error">
+          <small class="text-red-500">{{ getFieldError('serialCode') }}</small>
+        </div>
+      }
+    </div>
+
+    <!-- Taller/Garage (Selector) -->
+    <div>
+      <p-floatlabel variant="on">
+        <p-select
+          formControlName="garageId"
+          [options]="garages"
+          optionLabel="name"
+          optionValue="uuid"
+          styleClass="w-full"
+					[invalid]="isFieldInvalid('garageId')"
+        />
+        <label for="garageId">Taller</label>
+      </p-floatlabel>
+      @if(getFieldError('garageId')) {
+        <div class="p-error">
+          <small class="text-red-500">{{ getFieldError('garageId') }}</small>
+        </div>
+      }
+    </div>
+
+    <!-- Condición (Selector) -->
+    <div>
+      <p-floatlabel variant="on">
+        <p-select
+          formControlName="conditionId"
+          [options]="conditions"
+          optionLabel="description"
+          optionValue="uuid"
+          styleClass="w-full"
+					[invalid]="isFieldInvalid('conditionId')"
+        />
+        <label for="conditionId">Condición</label>
+      </p-floatlabel>
+      @if(getFieldError('conditionId')) {
+        <div class="p-error">
+          <small class="text-red-500">{{ getFieldError('conditionId') }}</small>
+        </div>
+      }
+    </div>
+
+    <!-- Status (Selector) -->
+    <div>
+      <p-floatlabel variant="on">
+        <p-select
+          formControlName="status"
+          [options]="statusOptions"
+          optionLabel="label"
+          optionValue="value"
+          styleClass="w-full"
+					[invalid]="isFieldInvalid('status')"
+				/>
+        <label for="status">Estado</label>
+      </p-floatlabel>
+      @if(getFieldError('status')) {
+        <div class="p-error">
+          <small class="text-red-500">{{ getFieldError('status') }}</small>
+        </div>
+      }
+    </div>
+
+    <!-- Último Usuario Asignado -->
+    <div>
+      <p-floatlabel variant="on">
+        <input
+          formControlName="lastAssignedUser"
+          pInputText
+          id="lastAssignedUser"
+          autocomplete="on"
+        />
+        <label for="lastAssignedUser">Último Usuario Asignado</label>
+      </p-floatlabel>
+    </div>
+
+    <!-- Botones -->
+    <div class="col-span-3 flex gap-2">
+      <p-button label="Guardar" severity="info" type="submit" />
+      <p-button label="Cancelar" severity="secondary" type="button" (onClick)="onReset()" />
+    </div>
+  </form>
+</section>

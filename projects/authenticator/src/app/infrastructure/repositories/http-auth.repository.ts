@@ -10,6 +10,7 @@ import {
 } from '../../domain/repositories/auth-remote.repository';
 import { AuthTokenEntity } from '../../domain/entities/auth-token.entity';
 import { UserEntity } from '../../domain/entities/user.entity';
+import { environment } from '../../../environments/environment';
 
 interface ApiLoginSuccessResponse {
   success: true;
@@ -53,7 +54,7 @@ type ApiRegisterResponse = ApiRegisterSuccessResponse | ApiErrorResponse;
 
 @Injectable()
 export class HttpAuthRepository implements AuthRemoteRepository {
-  private readonly baseUrl = 'http://localhost:3000';
+  private readonly baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 

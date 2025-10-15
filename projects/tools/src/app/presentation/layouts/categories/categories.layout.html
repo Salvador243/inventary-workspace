@@ -1,5 +1,5 @@
 <section class="card tools-theme">
-	<p-tabs value="list">
+	<p-tabs [(value)]="activeTab">
 		<p-tablist>
 			@for (item of tabs; track $index) {
 			<p-tab class="flex items-center !gap-2" [value]="item.value">
@@ -10,10 +10,10 @@
 		</p-tablist>
 		<p-tabpanels>
 			<p-tabpanel value="list">
-				<tools-categorie-list />
+				<tools-categorie-list (changeTab)="onChangeTab($event)"/>
 			</p-tabpanel>
 			<p-tabpanel value="form">
-				<tools-categorie-form />
+				<tools-categorie-form (changeTab)="onChangeTab($event)"/>
 			</p-tabpanel>
 		</p-tabpanels>
 	</p-tabs>

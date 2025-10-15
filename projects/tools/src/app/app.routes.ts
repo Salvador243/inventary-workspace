@@ -4,7 +4,12 @@ export const routes: Routes = [
 	{
 		path: 'tools',
 		loadComponent: () =>
-			import('./presentation/layouts/home-layout/home.layout').then((m) => m.HomeLayoutComponent),
+			import('./presentation/layouts/tools/tools.layout').then(m => m.ToolsLayoutComponent),
+	},
+	{
+		path: 'instances/:toolTypeId',
+		loadComponent: () =>
+			import('./presentation/layouts/tool-instances/tool-instances.layout').then(m => m.ToolInstancesLayoutComponent),
 	},
 	{
 		path: 'categories',

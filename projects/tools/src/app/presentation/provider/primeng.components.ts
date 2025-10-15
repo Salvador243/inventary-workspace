@@ -7,6 +7,7 @@ import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
 import { FileUploadModule } from 'primeng/fileupload';
+import { SelectModule } from 'primeng/select';
 
 export const PRIMENG_IMPORTS = [
 	TabsModule,
@@ -18,6 +19,7 @@ export const PRIMENG_IMPORTS = [
 	TagModule,
 	ButtonModule,
 	FileUploadModule,
+	SelectModule,
 ];
 
 export default PRIMENG_IMPORTS;

@@ -1,5 +1,5 @@
 <section>
-  <form class="gap-y-3 grid grid-cols-3" [formGroup]="formGarage" (ngSubmit)="onSubmit()">
+  <form class="gap-y-3 grid grid-cols-3" [formGroup]="formCategorie" (ngSubmit)="onSubmit()">
     <div>
       <p-floatlabel variant="on">
         <input
@@ -37,6 +37,10 @@
     <div class="flex items-center">
       <p-toggleswitch formControlName="status" />
     </div>
-    <p-button label="Enviar" severity="info" type="submit" [disabled]="!formGarage.valid" />
+    <p-button
+			label="Enviar"
+			severity="info"
+			type="submit"
+		/>
   </form>
 </section>

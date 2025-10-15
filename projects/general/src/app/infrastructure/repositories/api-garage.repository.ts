@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import {
 	ApiCreateGarageResponse,
 	ApiDeleteGarageResponse,
@@ -19,19 +20,19 @@ import {
 
 @Injectable()
 export class ApiGarageRepository implements HttpGarageRepository{
-	private readonly baseUrl: string = 'http://localhost:3001/garage';
+	private readonly baseUrl: string = `${environment.apiUrl}/garage`;
 
 	constructor(
 		private http: HttpClient
 	) {
 	}
 
-	public async getGarages({ page, limit }: ParamsGetGarages): Promise<ApiGetGarageData>{
+	public async getGarages(params?: ParamsGetGarages): Promise<ApiGetGarageData>{
 		const url = `${this.baseUrl}/get-all`;
 		const reponse = await firstValueFrom(this.http.get<ApiGetGaragesResponse>(url, {
 			params: {
-				page: page ?? 1,
-				limit: limit ?? 20
+				page: params?.page ?? 1,
+				limit: params?.limit ?? 20
 			}
 		}))
 		if(!reponse.success) {

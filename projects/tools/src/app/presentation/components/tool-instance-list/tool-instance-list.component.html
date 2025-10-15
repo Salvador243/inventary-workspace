@@ -1,0 +1,65 @@
+<section class="card">
+	<div class="flex justify-between items-center mb-4">
+		<h2 class="text-xl font-bold">Instancias de Herramientas</h2>
+		<p-button 
+			label="Nueva Instancia" 
+			icon="pi pi-plus" 
+			severity="success" 
+			(onClick)="onCreateNew()" 
+		/>
+	</div>
+
+	<p-table [value]="toolInstances" styleClass="p-datatable-sm">
+		<ng-template #header>
+			<tr>
+				<th>Código Serial</th>
+				<th>Taller</th>
+				<th>Condición</th>
+				<th>Estado</th>
+				<th>Último Usuario</th>
+				<th>Acciones</th>
+			</tr>
+		</ng-template>
+		<ng-template #body let-instance>
+			<tr>
+				<td>
+					<p-tag severity="info" [value]="instance.serialCode" />
+				</td>
+				<td>{{ instance.garageName || instance.garageId }}</td>
+				<td>{{ instance.conditionDescription || instance.conditionId }}</td>
+				<td>
+					<p-tag 
+						[severity]="
+							instance.status === 'available' ? 'success' : 
+							instance.status === 'assigned' ? 'info' : 
+							instance.status === 'maintenance' ? 'warn' : 'danger'
+						" 
+						[value]="instance.status" 
+					/>
+				</td>
+				<td>{{ instance.lastAssignedUser || 'N/A' }}</td>
+				<td>
+					<div class="gap-1 flex">
+						<i
+							class="pi pi-pen-to-square !w-5 !h-4 !text-xs cursor-pointer"
+							(click)="fetchToolInstanceByUuid(instance.uuid)"
+							title="Editar">
+						</i>
+						<i
+							class="pi pi-trash !w-5 !h-4 !text-xs cursor-pointer text-red-500"
+							(click)="onDeleteToolInstance(instance.uuid)"
+							title="Eliminar">
+						</i>
+					</div>
+				</td>
+			</tr>
+		</ng-template>
+		<ng-template #emptymessage>
+			<tr>
+				<td colspan="6" class="text-center py-4">
+					No hay instancias registradas para este tipo de herramienta.
+				</td>
+			</tr>
+		</ng-template>
+	</p-table>
+</section>

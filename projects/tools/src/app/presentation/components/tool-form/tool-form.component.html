@@ -14,7 +14,7 @@
       </p-floatlabel>
       @if(getFieldError('code')) {
         <div class="p-error">
-          <small>{{ getFieldError('code') }}</small>
+          <small class="text-red-500">{{ getFieldError('code') }}</small>
         </div>
       }
     </div>
@@ -23,129 +23,104 @@
     <div>
       <p-floatlabel variant="on">
         <input
-          formControlName="nombre"
+          formControlName="name"
           pInputText
-          id="nombre"
+          id="name"
           autocomplete="on"
-          [invalid]="isFieldInvalid('nombre')"
+          [invalid]="isFieldInvalid('name')"
         />
-        <label for="nombre">Nombre</label>
+        <label for="name">Nombre</label>
       </p-floatlabel>
-      @if(getFieldError('nombre')) {
+      @if(getFieldError('name')) {
         <div class="p-error">
-          <small>{{ getFieldError('nombre') }}</small>
+          <small class="text-red-500">{{ getFieldError('name') }}</small>
         </div>
       }
     </div>
 
-    <!-- Categoría -->
+    <!-- Categoría (Selector) -->
     <div>
       <p-floatlabel variant="on">
-        <input
-          formControlName="categoria"
-          pInputText
-          id="categoria"
-          autocomplete="on"
-          [invalid]="isFieldInvalid('categoria')"
+        <p-select
+          formControlName="categoryId"
+          [options]="categories"
+          optionLabel="name"
+          optionValue="uuid"
+          styleClass="w-full"
+					[invalid]="isFieldInvalid('categoryId')"
         />
-        <label for="categoria">Categoría</label>
+        <label for="categoryId">Categoría</label>
       </p-floatlabel>
-      @if(getFieldError('categoria')) {
+      @if(getFieldError('categoryId')) {
         <div class="p-error">
-          <small>{{ getFieldError('categoria') }}</small>
+          <small class="text-red-500">{{ getFieldError('categoryId') }}</small>
         </div>
       }
     </div>
 
-    <!-- Contador Activos -->
+    <!-- Taller/Garage (Selector) -->
     <div>
       <p-floatlabel variant="on">
-        <input
-          formControlName="contador_activos"
-          pInputText
-          id="contador_activos"
-          type="number"
-          min="0"
-          [invalid]="isFieldInvalid('contador_activos')"
-        />
-        <label for="contador_activos">Contador Activos</label>
+        <p-select
+          formControlName="garageId"
+          [options]="garages"
+          optionLabel="name"
+          optionValue="uuid"
+          styleClass="w-full"
+					[invalid]="isFieldInvalid('garageId')"
+	        />
+        <label for="garageId">Taller</label>
       </p-floatlabel>
-      @if(getFieldError('contador_activos')) {
+      @if(getFieldError('garageId')) {
         <div class="p-error">
-          <small>{{ getFieldError('contador_activos') }}</small>
+          <small class="text-red-500">{{ getFieldError('garageId') }}</small>
         </div>
       }
     </div>
 
-    <!-- Contador Fuera de Servicio -->
+    <!-- Status (Selector) -->
     <div>
       <p-floatlabel variant="on">
-        <input
-          formControlName="contador_fuera_de_servicio"
-          pInputText
-          id="contador_fuera_de_servicio"
-          type="number"
-          min="0"
-          [invalid]="isFieldInvalid('contador_fuera_de_servicio')"
-        />
-        <label for="contador_fuera_de_servicio">Fuera de Servicio</label>
+        <p-select
+          formControlName="status"
+          [options]="statusOptions"
+          optionLabel="label"
+          optionValue="value"
+          styleClass="w-full"
+					[invalid]="isFieldInvalid('status')"
+				/>
+        <label for="status">Estatus</label>
       </p-floatlabel>
-      @if(getFieldError('contador_fuera_de_servicio')) {
+      @if(getFieldError('status')) {
         <div class="p-error">
-          <small>{{ getFieldError('contador_fuera_de_servicio') }}</small>
+          <small class="text-red-500">{{ getFieldError('status') }}</small>
         </div>
       }
     </div>
 
     <!-- Imagen -->
     <div>
-      <label for="imagen" class="block text-sm font-medium mb-2">Imagen</label>
-      <p-fileUpload
-        id="imagen"
-        mode="basic"
-        accept="image/*"
-        [maxFileSize]="1000000"
-        chooseLabel="Seleccionar imagen"
-        [auto]="true"
-				url="https://www.primefaces.org/cdn/api/upload.php"
-				styleClass="w-full"
-        (onSelect)="onFileSelect($event)"
-      ></p-fileUpload>
-      @if(getFieldError('imagen')) {
-        <div class="p-error">
-          <small>{{ getFieldError('imagen') }}</small>
-        </div>
-      }
-    </div>
-
-    <!-- Taller -->
-    <div>
       <p-floatlabel variant="on">
         <input
-          formControlName="taller"
+          formControlName="image"
           pInputText
-          id="taller"
+          id="image"
           autocomplete="on"
-          [invalid]="isFieldInvalid('taller')"
+          [invalid]="isFieldInvalid('image')"
         />
-        <label for="taller">Taller</label>
+        <label for="image">URL Imagen</label>
       </p-floatlabel>
-      @if(getFieldError('taller')) {
+      @if(getFieldError('image')) {
         <div class="p-error">
-          <small>{{ getFieldError('taller') }}</small>
+          <small class="text-red-500">{{ getFieldError('image') }}</small>
         </div>
       }
-    </div>
-
-    <!-- Estatus -->
-    <div class="flex items-center">
-      <label class="mr-3">Estatus:</label>
-      <p-toggleswitch formControlName="estatus" />
     </div>
 
     <!-- Botón Submit -->
-    <div class="col-span-3">
-      <p-button label="Guardar Herramienta" severity="info" type="submit" [disabled]="!formTool.valid" />
+    <div class="col-span-3 flex gap-2">
+      <p-button label="Guardar" severity="info" type="submit" />
+      <p-button label="Cancelar" severity="secondary" type="button" (onClick)="onReset()" />
     </div>
   </form>
 </section>

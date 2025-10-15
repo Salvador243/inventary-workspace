@@ -1,5 +1,4 @@
-import {ApiGetGarageData, CreateGarageRequest, Garage, ParamsGetGarages} from '../entities/garages.entity';
-import {Injectable} from '@angular/core';
+import { ApiGetGarageData, CreateGarageRequest, Garage, ParamsGetGarages } from '../entities/garages.entity';
 
 export abstract class HttpGarageRepository {
 	abstract getGarages(params?: ParamsGetGarages): Promise<ApiGetGarageData>;

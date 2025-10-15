@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, effect, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import PRIMENG_IMPORTS from '../../provider/primeng.components';
 import { Tool } from '../../../domain/entities/tool.entity';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ToolStateService } from '../../services/tool-state.service';
 
 @Component({
 	selector: 'tools-tool-list',
@@ -10,41 +12,48 @@ import { FormsModule } from '@angular/forms';
 	templateUrl: './tool-list.component.html',
 	imports: [...PRIMENG_IMPORTS, CommonModule, FormsModule],
 })
+export class ToolListComponent implements OnInit {
+	private readonly toolStateService = inject(ToolStateService);
+	private readonly router = inject(Router);
 
-export class ToolListComponent {
-	public tools: Tool[] = [
-		{
-			id: '1',
-			code: 'TL001',
-			nombre: 'Taladro Eléctrico',
-			categoria: 'Mecanica',
-			contador_activos: 5,
-			contador_fuera_de_servicio: 2,
-			imagen: 'taladro.jpg',
-			taller: 'Taller A',
-			estatus: true,
-		},
-		{
-			id: '2',
-			code: 'TL002',
-			nombre: 'Multímetro Digital',
-			categoria: 'Digital',
-			contador_activos: 3,
-			contador_fuera_de_servicio: 1,
-			imagen: 'multimetro.jpg',
-			taller: 'Taller B',
-			estatus: false,
-		},
-		{
-			id: '3',
-			code: 'TL003',
-			nombre: 'Compresor Neumático',
-			categoria: 'Neumatica',
-			contador_activos: 2,
-			contador_fuera_de_servicio: 0,
-			imagen: 'compresor.jpg',
-			taller: 'Taller C',
-			estatus: true,
-		},
-	];
+	public page: number = 1;
+	public limit: number = 20;
+	public tools: Tool[] = [];
+
+	@Output()
+	changeTab: EventEmitter<string> = new EventEmitter<string>();
+
+	constructor() {
+		effect(() => {
+			if (this.toolStateService.shouldReload()) {
+				this.loadTools();
+				this.toolStateService.resetReloadFlag();
+			}
+		});
+	}
+
+	ngOnInit(): void {
+		this.loadTools();
+	}
+
+	private async loadTools(): Promise<void> {
+		this.tools = await this.toolStateService.fetchTools({
+			page: this.page,
+			limit: this.limit
+		});
+	}
+
+	public async fetchToolByUuid(uuid: string): Promise<void> {
+		await this.toolStateService.fetchToolByUuid(uuid);
+		this.changeTab.emit('form');
+	}
+
+	public async onDeleteTool(uuid: string): Promise<void> {
+		await this.toolStateService.deleteTool(uuid);
+	}
+
+	public navigateToInstances(toolTypeId: string): void {
+		console.log({toolTypeId})
+		this.router.navigate(['admin/tools/instances', toolTypeId]);
+	}
 }

@@ -44,7 +44,7 @@ export class GarageStateService {
 		this.triggerReload();
 	}
 
-	async saveGarage(garageData: any, uuid?: string): Promise<void> {
+	async saveGarage(garageData: Omit<Garage, 'uuid'>, uuid?: string): Promise<void> {
 		if (uuid) {
 			await this.updateGarage({ ...garageData, uuid });
 		} else {

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, effect, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import {
 	FormBuilder,
 	FormControl,
@@ -9,6 +9,10 @@ import {
 	Validators,
 } from '@angular/forms';
 import PRIMENG_IMPORTS from '../../provider/primeng.components';
+import { ToolStateService } from '../../services/tool-state.service';
+import { ToolStatus } from '@tools/domain/entities/tool.entity';
+import { Categorie } from '@tools/domain/entities/categorie.entity';
+import { Garage } from '@general/domain/entities/garages.entity';
 
 @Component({
 	selector: 'tools-tool-form',
@@ -18,20 +22,65 @@ import PRIMENG_IMPORTS from '../../provider/primeng.components';
 })
 export class ToolFormComponent implements OnInit {
 	public formTool!: FormGroup;
+	private readonly toolStateService = inject(ToolStateService);
+	private readonly fb = inject(FormBuilder);
+	private uuid: string | undefined = undefined;
 
-	constructor(private fb: FormBuilder) {}
+	public categories: Categorie[] = [];
+	public garages: Garage[] = [];
+	public statusOptions = [
+		{ label: 'Activo', value: 'active' },
+		{ label: 'Inactivo', value: 'inactive' }
+	];
 
-	ngOnInit(): void {
+	@Output()
+	changeTab = new EventEmitter<string>();
+
+	constructor() {
+		effect(() => {
+			this.uuid = undefined;
+			const selectedTool = this.toolStateService.toolSelected();
+			if (!this.formTool) return;
+			if (!selectedTool) {
+				this.formTool.reset({
+					status: 'active'
+				});
+				return;
+			}
+
+			this.uuid = selectedTool.uuid;
+			this.formTool.patchValue({
+				code: selectedTool.code,
+				name: selectedTool.name,
+				categoryId: selectedTool.categoryId,
+				status: selectedTool.status,
+				image: selectedTool.image || '',
+				garageId: selectedTool.garageId,
+			});
+		});
+	}
+
+	async ngOnInit(): Promise<void> {
 		this.formTool = this.fb.group({
 			code: new FormControl('', [Validators.required, Validators.minLength(3)]),
-			nombre: new FormControl('', [Validators.required, Validators.minLength(3)]),
-			categoria: new FormControl('', [Validators.required]),
-			contador_activos: new FormControl(0, [Validators.required, Validators.min(0)]),
-			contador_fuera_de_servicio: new FormControl(0, [Validators.required, Validators.min(0)]),
-			imagen: new FormControl('', [Validators.required]),
-			taller: new FormControl('', [Validators.required]),
-			estatus: new FormControl(true, [Validators.required]),
+			name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+			categoryId: new FormControl('', [Validators.required]),
+			status: new FormControl<ToolStatus>('active', [Validators.required]),
+			image: new FormControl(''),
+			garageId: new FormControl('', [Validators.required]),
 		});
+
+		// Cargar categorías y garages
+		await this.loadCategories();
+		await this.loadGarages();
+	}
+
+	private async loadCategories(): Promise<void> {
+		this.categories = await this.toolStateService.fetchCategories();
+	}
+
+	private async loadGarages(): Promise<void> {
+		this.garages = await this.toolStateService.fetchGarages();
 	}
 
 	isFieldInvalid(fieldName: string): boolean {
@@ -45,20 +94,16 @@ export class ToolFormComponent implements OnInit {
 			if (field.errors['required']) {
 				const fieldLabels: { [key: string]: string } = {
 					code: 'código',
-					nombre: 'nombre',
-					categoria: 'categoría',
-					contador_activos: 'contador de activos',
-					contador_fuera_de_servicio: 'contador fuera de servicio',
-					imagen: 'imagen',
-					taller: 'taller',
+					name: 'nombre',
+					categoryId: 'categoría',
+					status: 'estatus',
+					image: 'imagen',
+					garageId: 'taller',
 				};
 				return `El ${fieldLabels[fieldName] || fieldName} es obligatorio.`;
 			}
 			if (field.errors['minlength']) {
 				return `El ${fieldName === 'code' ? 'código' : 'nombre'} debe tener al menos 3 caracteres.`;
-			}
-			if (field.errors['min']) {
-				return `El valor debe ser mayor o igual a 0.`;
 			}
 		}
 		return null;
@@ -67,20 +112,25 @@ export class ToolFormComponent implements OnInit {
 	onFileSelect(event: any): void {
 		const file = event.files[0];
 		if (file) {
-			this.formTool.patchValue({ imagen: file.name });
+			this.formTool.patchValue({ image: file.name });
 			console.log('Archivo seleccionado:', file);
 		}
 	}
 
-	onSubmit(): void {
-		if (this.formTool.valid) {
-			console.log('Datos de la herramienta:', this.formTool.value);
-		} else {
-			console.log('Formulario inválido');
-			// Marcar todos los campos como touched para mostrar errores
-			Object.keys(this.formTool.controls).forEach(key => {
-				this.formTool.get(key)?.markAsTouched();
-			});
+	async onSubmit(): Promise<void> {
+		if (!this.formTool.valid) {
+			this.formTool.markAllAsTouched();
+			return;
 		}
+		await this.toolStateService.saveTool(this.formTool.value, this.uuid);
+		this.changeTab.emit('list');
+		this.onReset();
+	}
+
+	onReset(): void {
+		this.formTool.reset({
+			status: 'active'
+		});
+		this.toolStateService.clearSelection();
 	}
 }
