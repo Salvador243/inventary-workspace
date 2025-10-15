@@ -1,8 +1,11 @@
 {
-  "buildCommand": "npm install --legacy-peer-deps && npm run build shell -- --configuration production",
+  "buildCommand": "npm install --legacy-peer-deps && NODE_ENV=production npm run build shell -- --configuration production",
   "outputDirectory": "dist/shell/browser",
   "installCommand": "npm install --legacy-peer-deps",
   "framework": null,
+  "env": {
+    "NODE_ENV": "production"
+  },
   "rewrites": [
     {
       "source": "/(.*)",
