@@ -1,0 +1,61 @@
+# Este archivo es OPCIONAL - Netlify ya despliega automáticamente
+# Solo úsalo si quieres más control sobre el proceso de CI/CD
+
+name: Netlify Deploy
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # Job para verificar que todos los builds funcionan
+  verify-builds:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        project: [shell, authenticator, tools, historically, assignments, general]
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+      
+      - name: Build ${{ matrix.project }}
+        run: npm run build ${{ matrix.project }} -- --configuration production
+      
+      - name: Verify remoteEntry.json exists (for MFEs)
+        if: matrix.project != 'shell'
+        run: |
+          if [ ! -f "dist/${{ matrix.project }}/browser/remoteEntry.json" ]; then
+            echo "❌ remoteEntry.json not found for ${{ matrix.project }}"
+            exit 1
+          fi
+          echo "✅ remoteEntry.json found for ${{ matrix.project }}"
+
+  # Netlify se encarga del deploy automáticamente
+  # Este job solo notifica el estado
+  notify:
+    needs: verify-builds
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+      - name: Notify success
+        if: needs.verify-builds.result == 'success'
+        run: echo "✅ All builds successful! Netlify will deploy automatically."
+      
+      - name: Notify failure
+        if: needs.verify-builds.result == 'failure'
+        run: |
+          echo "❌ Some builds failed. Check the logs above."
+          exit 1
