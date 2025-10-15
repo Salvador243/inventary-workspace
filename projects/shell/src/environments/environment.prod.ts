@@ -1,10 +1,10 @@
 export const environment = {
 	production: true,
 	mfes: {
-		'mfe-authenticator': 'http://integradora-auth-mfe.eba-xxxxx.us-east-1.elasticbeanstalk.com/remoteEntry.json',
-		'mfe-tools': 'http://integradora-tools-mfe.eba-xxxxx.us-east-1.elasticbeanstalk.com/remoteEntry.json',
-		'mfe-historically': 'http://integradora-historically-mfe.eba-xxxxx.us-east-1.elasticbeanstalk.com/remoteEntry.json',
-		'mfe-assignments': 'http://integradora-assignments-mfe.eba-xxxxx.us-east-1.elasticbeanstalk.com/remoteEntry.json',
-		'mfe-general': 'http://integradora-general-mfe.eba-xxxxx.us-east-1.elasticbeanstalk.com/remoteEntry.json',
+		'mfe-authenticator': 'https://integradora-auth-mfe.vercel.app/remoteEntry.json',
+		'mfe-tools': 'https://integradora-tools-mfe.vercel.app/remoteEntry.json',
+		'mfe-historically': 'https://integradora-historically-mfe.vercel.app/remoteEntry.json',
+		'mfe-assignments': 'https://integradora-assignments-mfe.vercel.app/remoteEntry.json',
+		'mfe-general': 'https://integradora-general-mfe.vercel.app/remoteEntry.json',
 	}
 };
