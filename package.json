@@ -4,8 +4,8 @@
 	"scripts": {
 		"ng": "ng",
 		"start": "ng serve",
-		"build": "npm run build",
-		"build:shell": "NODE_ENV=production npm run build shell --configuration production",
+		"build": "ng build",
+		"build:shell": "NODE_ENV=production ng build shell --configuration production",
 		"build:authenticator": "NODE_ENV=production ng build authenticator --configuration production",
 		"build:tools": "NODE_ENV=production ng build tools --configuration production",
 		"build:historically": "NODE_ENV=production ng build historically --configuration production",
