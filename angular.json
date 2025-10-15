@@ -22,7 +22,13 @@
 					},
 					"configurations": {
 						"production": {
-							"target": "shell:esbuild:production"
+							"target": "shell:esbuild:production",
+							"fileReplacements": [
+								{
+									"replace": "projects/shell/src/environments/environment.ts",
+									"with": "projects/shell/src/environments/environment.prod.ts"
+								}
+							]
 						},
 						"development": {
 							"target": "shell:esbuild:development",
